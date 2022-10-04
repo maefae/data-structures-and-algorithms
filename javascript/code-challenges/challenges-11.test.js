@@ -167,13 +167,10 @@ let starWarsData = [
 ];
 
 let findMaleAndFemale = (data) => {
-  // Solution code here...
-  let findMaleAndFemale = (data) => {
-    return data
-      .filter((personObj) => personObj.gender.includes("male" || "female"))
-      .map((person) => person.name)
-      .join(" and ");
-  };
+  return data
+    .filter((personObj) => personObj.gender.includes("male" || "female"))
+    .map((person) => person.name)
+    .join(" and ");
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -183,16 +180,10 @@ Write a function named findShortest that, given the Star Wars data from Challeng
 ------------------------------------------------------------------------------------------------ */
 
 let findShortest = (data) => {
-  // Solution code here...
-  let shortest = data[0];
-  data.map((obj) => {
-    if (obj.height < shortest.height) {
-      shortest = obj;
-    }
-  });
-  return shortest.name;
+  return data.reduce((shortest, next) =>
+    +shortest.height < +next.height ? shortest : next
+  ).name;
 };
-
 /* ------------------------------------------------------------------------------------------------
 TESTS
 
