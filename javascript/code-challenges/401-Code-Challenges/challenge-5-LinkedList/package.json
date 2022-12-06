@@ -1,7 +1,6 @@
 {
-  "name": "challenge-5-Linkedlist",
+  "name": "challenge-5-linkedlist",
   "version": "1.0.0",
-  "description": "",
   "main": "LinkedList.js",
   "scripts": {
     "start": "node LinkedList.js",
@@ -16,5 +15,6 @@
     "eslint": "^8.29.0",
     "jest": "^29.3.1",
     "supertest": "^6.3.2"
-  }
+  },
+  "description": ""
 }
