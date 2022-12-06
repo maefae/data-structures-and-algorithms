@@ -1,191 +1,147 @@
 "use strict";
 
-const LinkedList = require("./linked-list.js");
+/**
+ * Node class handles the packaging of values
+ * @class
+ */
+class Node {
+  constructor(value, next = null) {
+    this.value = value;
+    this.next = next;
+  }
+}
 
-describe("Test 06 Singly LinkedLists", () => {
-  it("Should instantiate a linked list with no items", () => {
-    let ll = new LinkedList();
-    let actual = ll.head;
+/**
+ * LinkedList creates an implementation of the linked list data structure.
+ * @class
+ */
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
 
-    expect(actual).toBeNull();
-  });
+  /**
+   * Creates a new node and adds it to the linked list
+   * @param {*} value - Can be any data type
+   */
+  insert(value) {
+    this.head = new Node(value, this.head);
+  }
 
-  describe("Testing toString method", () => {
-    it("Should return a string representation of itself", () => {
-      let ll = new LinkedList();
-      ll.insert(1);
+  /**
+   * Searches the values within the linked list for the provided value
+   * @param {*} value Search value to be found
+   * @returns Boolean True if found otherwise false
+   */
+  includes(value) {
+    let current = this.head;
 
-      let actual = ll.toString();
-      let expected = "{1} -> NULL";
+    while (current) {
+      if (current.value == value) {
+        return true;
+      }
 
-      expect(actual).toEqual(expected);
-    });
-  });
+      current = current.next;
+    }
 
-  describe("Testing insert method", () => {
-    it("Should add a value into the LinkedList", () => {
-      let ll = new LinkedList();
-      ll.insert("pizza");
+    return false;
+  }
 
-      let actual = ll.head.value;
-      let expected = "pizza";
+  /**
+   * Overrides the default toString() method
+   * @returns a string representating all the items in the linked list
+   */
+  toString() {
+    let output = "";
+    let current = this.head;
 
-      expect(actual).toEqual(expected);
-    });
+    while (current) {
+      output += `{${current.value}} -> `;
+      current = current.next;
+    }
 
-    it("Should add multiple nodes to the end of a linked list", () => {
-      let ll = new LinkedList();
-      ll.insert("pizza");
-      ll.insert("ice cream");
-      ll.insert(5);
+    return output + "NULL";
+  }
 
-      let actual = ll.toString();
-      let expected = "{5} -> {ice cream} -> {pizza} -> NULL";
+  /**
+   * Creates a new node and adds it to the end of the linked list.
+   * @param {*} value Any value to be added
+   */
+  append(value) {
+    let current = this.head;
 
-      expect(actual).toEqual(expected);
-    });
-  });
+    if (!current) {
+      this.insert(value);
+    }
 
-  describe("Testing include method", () => {
-    it("Should return true if a LinkedList includes a value", () => {
-      let ll = new LinkedList();
-      ll.insert("a");
-      ll.insert("b");
-      ll.insert("c");
+    while (current) {
+      if (current.next == null) {
+        current.next = new Node(value);
+        break;
+      }
 
-      let actual = ll.includes("c");
+      current = current.next;
+    }
+  }
 
-      expect(actual).toBeTruthy();
-    });
+  /**
+   * Creates a new node and inserts this node before the given value in the linked list.
+   * @param {*} value - Value of an existing node
+   * @param {*} newValue - Any value to be added
+   */
+  insertBefore(value, newValue) {
+    let current = this.head;
 
-    it("Should return false if a LinkedList includes a value", () => {
-      let ll = new LinkedList();
-      ll.insert("a");
-      ll.insert("b");
-      ll.insert("c");
+    if (!current) {
+      throw Error(
+        "Value Error! Can't add a value before a value that does not exist."
+      );
+    }
 
-      let actual = ll.includes("d");
+    if (current.value == value) {
+      this.insert(newValue);
+      return;
+    }
 
-      expect(actual).toBeFalsy();
-    });
-  });
+    while (current) {
+      if (!current.next) {
+        throw Error(
+          "Value Error! Can't add a value before a value that does not exist."
+        );
+      }
 
-  describe("Testing insertBefore method", () => {
-    it("Should insert a node before the head of a linked list", () => {
-      let ll = new LinkedList();
-      ll.insert(2);
-      ll.insert(3);
-      ll.insert(1);
-      ll.insertBefore(1, 5);
+      if (current.next.value == value) {
+        current.next = new Node(newValue, current.next);
+        break;
+      }
 
-      let actual = ll.toString();
-      let expected = "{5} -> {1} -> {3} -> {2} -> NULL";
+      current = current.next;
+    }
+  }
 
-      expect(actual).toEqual(expected);
-    });
+  /**
+   * Creates a new node and inserts this node after the given value in the linked list.
+   * @param {*} value  Value of an existing node
+   * @param {*} newValue Any value to be added
+   */
+  insertAfter(value, newValue) {
+    let current = this.head;
 
-    it("Should insert a node before a node located in the middle of a linked list", () => {
-      let ll = new LinkedList();
-      ll.insert(2);
-      ll.insert(3);
-      ll.insert(1);
-      ll.insertBefore(3, 5);
+    if (!current) {
+      throw Error(
+        "Value Error! Can't add a value after a value that does not exist."
+      );
+    }
 
-      let actual = ll.toString();
-      let expected = "{1} -> {5} -> {3} -> {2} -> NULL";
+    while (current) {
+      if (current.value == value) {
+        current.next = new Node(newValue, current.next);
+        break;
+      }
 
-      expect(actual).toEqual(expected);
-    });
+      current = current.next;
+    }
+  }
+}
 
-    it("Should raise an error when attempting to insert before a value not found", () => {
-      let ll = new LinkedList();
-      ll.insert(2);
-      ll.insert(3);
-      ll.insert(1);
-
-      let actual = () => {
-        ll.insertBefore(4, 5);
-      };
-      let expected =
-        "Value Error! Can't add a value before a value that does not exist.";
-
-      expect(actual).toThrow(expected);
-    });
-
-    it("Should raise an error when attempting to insert before an empty linked list", () => {
-      let ll = new LinkedList();
-      let actual = () => {
-        ll.insertBefore(4, 5);
-      };
-      let expected =
-        "Value Error! Can't add a value before a value that does not exist.";
-
-      expect(actual).toThrow(expected);
-    });
-  });
-
-  describe("Testing append method", () => {
-    it("Should append to an empty linked list", () => {
-      let ll = new LinkedList();
-      ll.append(1);
-
-      let actual = ll.toString();
-      let expected = "{1} -> NULL";
-
-      expect(actual).toEqual(expected);
-    });
-
-    it("Should append to the end of linked list", () => {
-      let ll = new LinkedList();
-      ll.insert(2);
-      ll.insert(3);
-      ll.insert(1);
-      ll.append(5);
-
-      let actual = ll.toString();
-      let expected = "{1} -> {3} -> {2} -> {5} -> NULL";
-
-      expect(actual).toEqual(expected);
-    });
-  });
-
-  describe("Testing insertAfter method", () => {
-    it("Should raise an error when attempting to insert after an empty linked list", () => {
-      let ll = new LinkedList();
-
-      let actual = () => {
-        ll.insertAfter(3, 5);
-      };
-      let expected =
-        "Value Error! Can't add a value after a value that does not exist.";
-
-      expect(actual).toThrow(expected);
-    });
-
-    it("Should insert after given value within the linked list Test 1", () => {
-      let ll = new LinkedList();
-      ll.insert(2);
-      ll.insert(3);
-      ll.insert(1);
-      ll.insertAfter(3, 5);
-
-      let actual = ll.toString();
-      let expected = "{1} -> {3} -> {5} -> {2} -> NULL";
-
-      expect(actual).toEqual(expected);
-    });
-
-    it("Should insert after given value within the linked list Test 2", () => {
-      let ll = new LinkedList();
-      ll.insert(2);
-      ll.insert(2);
-      ll.insert(1);
-      ll.insertAfter(2, 5);
-
-      let actual = ll.toString();
-      let expected = "{1} -> {2} -> {5} -> {2} -> NULL";
-
-      expect(actual).toEqual(expected);
-    });
-  });
-});
+module.exports = LinkedList;
