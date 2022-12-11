@@ -7,10 +7,6 @@ class LinkedList {
     this.head = head;
   }
 
-  // this method adds a new node at the `head` of the linked list with O(1) Time performance
-  // pass in a value to make a new `Node` we want to serve as the `head`
-  // make the new node point to the current `head`
-  // then make this linked list object point to the new `head`
   insert(newHeadData) {
     // set newHead.next as the value of this linked list's `head` node
     let newHead = new Node(newHeadData, this.head);
@@ -228,11 +224,6 @@ function zipLists(list1, list2) {
     zippedList.append(thing1.data);
     zippedList.append(thing2.data);
 
-    //console.log('list1 toString before loop:', list1.toString());
-    //console.log('list2 toString before loop:', list2.toString());
-    //console.log('zippedList before loop: ', zippedList.toString());
-    // make a while loop: while current1 or current2 isn't null
-    // so if one list is null, but the other isn't, it'll keep on looping
     while (thing1.next || thing2.next) {
       if (thing1.next) {
         // go to the next Node of list1
@@ -258,24 +249,3 @@ function zipLists(list1, list2) {
     return zippedList;
   }
 }
-
-/*
-// random tests
-let testNode = new Node('poop');
-console.log('testNode toString: ', testNode.toString());
-let testNode2 = new Node('peep');
-testNode.next = testNode2;
-let testList2 = new LinkedList(new Node('meep', new Node('MEEP')));
-let testList = new LinkedList(testNode);
-console.log(testNode);
-console.log(testList.toString());
-// `includes()` test
-console.log(testList.includes('poop'));
-console.log(testList2.toString());
-testList.insert('new head');
-console.log('testList toString: ', testList.toString());
-testList.append(99);
-console.log(testList.toString());
-let zippedList = zipLists(testList, testList2);
-console.log('zippedList toString: ', zippedList.toString());
-*/

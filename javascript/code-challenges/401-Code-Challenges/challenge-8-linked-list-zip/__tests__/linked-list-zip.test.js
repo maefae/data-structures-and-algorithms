@@ -7,11 +7,11 @@ describe("LinkedList Zip function", () => {
     // test to see if zip works when first linked list is longer than the second
     it("should return a linked list with nodes interleaved", () => {
       // make a linked list with nodes
-      let shortList = new LinkedList(new Node("banana", new Node("pizza")));
+      let shortList = new LinkedList(new Node("salmon", new Node("pizza")));
 
       // make a longer linked list with more nodes
       let longList = new LinkedList(
-        new Node("nacho", new Node("donut", new Node("weed-rat stew")))
+        new Node("chip", new Node("turkey", new Node("pasta")))
       );
 
       // run zipLists()
@@ -19,7 +19,7 @@ describe("LinkedList Zip function", () => {
 
       // expect them to be interleaved
       expect(zippedList.toString()).toEqual(
-        "{ banana } -> { nacho } -> { pizza } -> { donut } -> { weed-rat stew } -> NULL"
+        "{ salmon } -> { chip } -> { pizza } -> { turkey } -> { pasta } -> NULL"
       );
     });
 
@@ -29,13 +29,13 @@ describe("LinkedList Zip function", () => {
       let longList = new LinkedList(
         new Node(
           "coffee",
-          new Node("tea", new Node("kombucha", new Node("boba")))
+          new Node("lemonade", new Node("coconut-water", new Node("coke")))
         )
       );
 
       // make a longer linked list with more nodes
       let soupList = new LinkedList(
-        new Node("chowder", new Node("potage", new Node("ramen")))
+        new Node("potatoes", new Node("tomatoes", new Node("chicken")))
       );
 
       // run zipLists()
@@ -43,7 +43,7 @@ describe("LinkedList Zip function", () => {
 
       // expect them to be interleaved
       expect(zippedList.toString()).toEqual(
-        "{ coffee } -> { chowder } -> { tea } -> { potage } -> { kombucha } -> { ramen } -> { boba } -> NULL"
+        "{ coffee } -> { lemonade } -> { coconut-water } -> { potatoes } -> { coke } -> { chicken } -> { tomatoes } -> NULL"
       );
     });
 
@@ -54,7 +54,7 @@ describe("LinkedList Zip function", () => {
 
       // make a longer linked list with more nodes
       let notEmptyList = new LinkedList(
-        new Node("chowder", new Node("potage", new Node("ramen")))
+        new Node("potatoes", new Node("tomatoes", new Node("chicken")))
       );
 
       // run zipLists()
