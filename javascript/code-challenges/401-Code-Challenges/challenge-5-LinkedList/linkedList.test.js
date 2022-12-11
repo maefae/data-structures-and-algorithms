@@ -1,9 +1,9 @@
 "use strict";
 
-const LinkedList = require("./linkedList.test.js");
+const LinkedList = require("./linkedList.js");
 
-describe("Linked List Test", () => {
-  let list = new linkedList();
+describe("Linked List", () => {
+  let list = new LinkedList();
   it("Successfully instantiates an empty linked list", () => {
     expect(list.head).toBeNull();
   });
