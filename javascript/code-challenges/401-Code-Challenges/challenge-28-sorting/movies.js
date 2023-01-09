@@ -1,6 +1,5 @@
 "use strict";
 
-// Excerpt from https://github.com/erik-sytnyk/movies-list/blob/master/db.json
 const Movies = [
   {
     title: "Just Friends",
