@@ -10,7 +10,7 @@ const Movies = [
   {
     title: "Mulholland Drive",
     year: 2001,
-    genre: ["", "History", "Thriller"],
+    genre: ["Crime", "Thriller"],
   },
   {
     title: "Panic Room",
