@@ -38,3 +38,7 @@ The strategy is to traverse one tree and place all values from that tree into a 
 ### Big O:
 time: O(n^2) - because it has to traverse over two different trees to obtain an answer
 space: O(log n) - because the amount of time will depend on how big each binary tree is.
+
+## UML
+
+![uml](./Untitled%20(4).png)
